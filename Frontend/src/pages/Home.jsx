@@ -222,7 +222,6 @@ const Home = () => {
         alt=""
       />
       <div className="h-screen w-screen">
-        {/* image for temporary use  */}
         <LiveTracking />
       </div>
       <div className=" flex flex-col justify-end h-screen absolute top-0 w-full">
