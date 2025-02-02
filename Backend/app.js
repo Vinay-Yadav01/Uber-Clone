@@ -9,6 +9,7 @@ const userRoutes = require("./routes/user.routes");
 const captainRoutes = require("./routes/captain.routes");
 const mapsRoutes = require("./routes/maps.routes");
 const rideRoutes = require("./routes/ride.routes");
+const axios = require("axios");
 
 connectToDb();
 
@@ -24,6 +25,22 @@ app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
+});
+
+app.post("/users/login", (req, res) => {
+  const { email, password } = req.body;
+  axios
+    .post(
+      "https://uber-clone-backend-7o5c.onrender.com/users/login",
+      { email, password },
+      { withCredentials: true }
+    )
+    .then((response) => {
+      res.send(response.data);
+    })
+    .catch((error) => {
+      res.status(500).send(error.message);
+    });
 });
 
 app.use("/users", userRoutes);
