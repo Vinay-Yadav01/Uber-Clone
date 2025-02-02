@@ -15,7 +15,6 @@ const UserLogin = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     const userData = {
       email: email,
       password: password
