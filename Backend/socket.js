@@ -1,15 +1,18 @@
 const socketIo = require("socket.io");
 const userModel = require("./models/user.model");
 const captainModel = require("./models/captain.model");
+const axios = require("axios");
 
 let io;
 
 function initializeSocket(server) {
   io = socketIo(server, {
     cors: {
-      origin: "*",
+      origin: "https://uber-clone-ufrs.onrender.com",
       methods: ["GET", "POST"],
-    },
+      credentials: true,
+      allowedHeaders: ["Content-Type", "Authorization"]
+    }
   });
 
   io.on("connection", (socket) => {
@@ -56,4 +59,13 @@ const sendMessageToSocketId = (socketId, messageObject) => {
   }
 };
 
-module.exports = { initializeSocket, sendMessageToSocketId };
+const sendPostRequest = (url, data) => {
+  axios.post(url, data, {
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+};
+
+module.exports = { initializeSocket, sendMessageToSocketId, sendPostRequest };
